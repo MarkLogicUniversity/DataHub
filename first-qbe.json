@@ -1,0 +1,5 @@
+{
+  "$query" : {
+      "first": {"$word": "ruby" }
+  }
+}
