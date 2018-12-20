@@ -1,0 +1,81 @@
+<export><workspace name="Plugin Test and Debug"><query name="Content Plugin" focus="false" listorder="2" taborder="2" active="true" database="17075298826700151870" server="2392681793174085885" database-name="" server-name="" mode="javascript">/*
+  NOTES:
+    The plugin code is imported from the modules database by referencing its URI.
+    You are testing a harmonize flow, so run this against the staging database.
+    To test the plugin, you need to pass in all the variables that it requires.
+      This means running any other plugins needed to generate required inputs.
+*/
+
+'use strict';
+
+const myCollectorPlugin = require('/entities/Employee/harmonize/harmonizeEmployee/collector.sjs');
+const myContentPlugin = require('/entities/Employee/harmonize/harmonizeEmployee/content.sjs');
+
+// setup some variables to pass test data into the plugin
+// the id variable comes from the collector plugin. We only want to test one document.
+const options = [];
+const id = fn.subsequence(myCollectorPlugin.collect(options), 1, 1);
+
+myContentPlugin.createContent(id, options);
+</query><query name="Collector Plugin" focus="true" listorder="1" taborder="1" active="true" database="17075298826700151870" server="2392681793174085885" database-name="data-hub-STAGING" server-name="data-hub-STAGING" mode="javascript">/*
+  This is a useful technique to help you write, test and debug plugin code.
+  
+  NOTES:
+    The plugin code is imported from the modules database by referencing its URI.
+    You are testing a harmonize flow, so run this against the staging database.
+    To test the plugin, you need to pass in all the variables that it requires.
+*/
+
+'use strict';
+
+const myCollectorPlugin = require('/entities/Employee/harmonize/harmonizeEmployee/collector.sjs');
+
+// create local variables to represent the inputs to the plugin
+// use these variables to define and constrain your test
+const options = {'entity': 'Employee'};
+
+// call the controlling function in the plugin
+myCollectorPlugin.collect(options);
+</query><query name="Header Plugin" focus="false" listorder="3" taborder="3" active="true" database="17075298826700151870" server="2392681793174085885" database-name="" server-name="" mode="javascript">/*
+  NOTES:
+    The plugin code is imported from the modules database by referencing its URI.
+    You are testing a harmonize flow, so run this against the staging database.
+    To test the plugin, you need to pass in all the variables that it requires.
+      This means running any other plugins needed to generate required inputs.
+*/
+
+'use strict';
+
+const myCollectorPlugin = require('/entities/Employee/harmonize/harmonizeEmployee/collector.sjs');
+const myContentPlugin = require('/entities/Employee/harmonize/harmonizeEmployee/content.sjs');
+const myHeadersPlugin = require('/entities/Employee/harmonize/harmonizeEmployee/headers.sjs');
+
+// setup some variables to pass test data into the plugin
+const options = [];
+const id = fn.subsequence(myCollectorPlugin.collect(options), 1, 1);
+const content = myContentPlugin.createContent(id, options);
+
+myHeadersPlugin.createHeaders(id, content, options);
+</query><query name="Triples Plugin" focus="false" listorder="4" taborder="4" active="true" database="17075298826700151870" server="2392681793174085885" database-name="" server-name="" mode="javascript">/*
+  NOTES:
+    The plugin code is imported from the modules database by referencing its URI.
+    You are testing a harmonize flow, so run this against the staging database.
+    To test the plugin, you need to pass in all the variables that it requires.
+      This means running any other plugins needed to generate required inputs.
+*/
+
+'use strict';
+
+const myCollectorPlugin = require('/entities/Employee/harmonize/harmonizeEmployee/collector.sjs');
+const myContentPlugin = require('/entities/Employee/harmonize/harmonizeEmployee/content.sjs');
+const myHeadersPlugin = require('/entities/Employee/harmonize/harmonizeEmployee/headers.sjs');
+const myTriplesPlugin = require('/entities/Employee/harmonize/harmonizeEmployee/triples.sjs');
+
+// setup some variables to pass test data into the plugin
+const options = [];
+const id = fn.subsequence(myCollectorPlugin.collect(options), 1, 1);
+const content = myContentPlugin.createContent(id, options);
+const headers = myHeadersPlugin.createHeaders(id, content, options);
+
+myTriplesPlugin.createTriples(id, content, headers, options);
+</query></workspace></export>
