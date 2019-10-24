@@ -1,9 +1,0 @@
-<q:qbe xmlns:q="http://marklogic.com/appservices/querybyexample"
-	   xmlns:envelope="http://marklogic.com/data-hub/envelope">
-  <q:query>
-  	<q:or>
-    	<envelope:first>john</envelope:first>
-    	<first>ruby</first>
-	</q:or>
-  </q:query>
-</q:qbe>
